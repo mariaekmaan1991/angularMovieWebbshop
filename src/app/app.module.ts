@@ -12,6 +12,7 @@ import { PrintOneProductComponent } from './component/print-one-product/print-on
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { PrintOneProductCheckoutComponent } from './component/print-one-product-checkout/print-one-product-checkout.component';
+import { AdminComponent } from './component/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { PrintOneProductCheckoutComponent } from './component/print-one-product-
     DetailProductComponent,
     PrintOneProductComponent,
     PrintOneProductCheckoutComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,
