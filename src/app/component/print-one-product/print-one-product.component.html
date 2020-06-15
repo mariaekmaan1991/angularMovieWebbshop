@@ -1,0 +1,14 @@
+<div *ngIf="product">
+  <div class='id'>{{product.id}}</div>
+
+  <h4>{{product.name}}</h4>
+  <div class='productPrice'>{{product.price}}</div>
+  <div><img src="{{product.imageUrl}}"></div>
+  <div>
+    <button (click)="buttonInfo()"><a [routerLink]="['/products', product.id]">läs mer</a></button>
+  </div>
+
+  <div>
+    <button (click)="buttonCart()">köp</button>
+  </div>
+</div>

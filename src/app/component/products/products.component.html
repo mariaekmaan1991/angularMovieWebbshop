@@ -1,0 +1,8 @@
+{{totalAmount}}
+
+<div *ngFor="let p of productList2.reverse()">
+
+  <app-print-one-product [product]="p" (cart)="addProductCart($event)" (outProduct)="selectProduct($event)">
+  </app-print-one-product>
+
+</div>

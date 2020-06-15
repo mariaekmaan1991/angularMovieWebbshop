@@ -1,0 +1,41 @@
+<p>checkout works!</p>
+<div *ngFor="let p of cartlocalStorage">
+
+  <app-print-one-product-checkout [singelproduct]="p" (remove2)="removeCart($event)"></app-print-one-product-checkout>>
+
+</div>
+
+<button (click)="localStorageClear()"></button>
+
+<div>
+  <form [formGroup]="userProfile" (ngSubmit)="saveUserProfile()">
+    <div>
+      <div>
+        <label for="firstName">förnamn</label>
+        <input type="text" formControlName="firstName" />
+      </div>
+      <div>
+        <label for="lastName">Efternamn</label>
+        <input type="text" id="lastName" formControlName="lastName" />
+      </div>
+    </div>
+    <div formGroupName="address">
+      <div>
+        <label for="street">adress</label>
+        <input type="text" id="street" formControlName="street" />
+      </div>
+      <div>
+        <label for="zip">Postkod</label>
+        <input type="text" id="zip" formControlName="zip" />
+      </div>
+      <div>
+        <label for="city">Postort</label>
+        <input type="text" id="city" formControlName="city" class="form-control" />
+      </div>
+      <div>
+        <button>spara</button>
+      </div>
+    </div>
+  </form>
+</div>
+<button (click)="createOder()">Bekräfta beställning</button>

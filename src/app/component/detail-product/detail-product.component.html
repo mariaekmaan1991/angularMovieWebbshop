@@ -1,0 +1,13 @@
+<p>detail-product works!</p>
+
+<div *ngIf="productList">
+  Parametern heh: {{productList.id}}
+
+  <div><img src="{{productList.imageUrl}}"></div>
+
+  Name : {{ productList.name}}
+  price : {{productList.price}}
+
+  <button (click)="buttonBuy(productList)">köp</button>
+
+</div>
