@@ -33,10 +33,4 @@ export class DetailProductComponent implements OnInit {
 
     this.service.getData();
   }
-
-  buttonBuy(e) {
-    localStorage.setItem('key', JSON.stringify(this.setCartLocalStorage || []));
-    console.log(e);
-    this.setCartLocalStorage.push(e);
-  }
 }

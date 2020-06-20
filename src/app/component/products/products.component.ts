@@ -9,6 +9,7 @@ import { Product } from 'src/app/models/Product';
 })
 export class ProductsComponent implements OnInit {
   productList2: Product[] = [];
+  product: Product;
   productCartList: Product[] = [];
   totalAmount: number = 0;
   constructor(private productsService: ProductsService) {}
@@ -28,14 +29,17 @@ export class ProductsComponent implements OnInit {
 
   addProductCart(p: Product) {
     p.quantity = 1;
-    let productCart = new Product();
-    productCart.name = p.name;
-    productCart.id = p.id;
-    productCart.price = p.price;
-    productCart.quantity = p.quantity;
-    productCart.imageUrl = p.imageUrl;
+    let productToCart = new Product();
+    productToCart.name = p.name;
+    productToCart.id = p.id;
+    productToCart.productCategory = p.productCategory;
+    productToCart.year = p.year;
+    productToCart.description = p.description;
+    productToCart.price = p.price;
+    productToCart.quantity = p.quantity;
+    productToCart.imageUrl = p.imageUrl;
 
-    this.productCartList.push(productCart);
+    this.productCartList.push(productToCart);
 
     this.counterProducts();
     console.log(this.productCartList.length, 'length');
@@ -50,6 +54,8 @@ export class ProductsComponent implements OnInit {
   }
 }
 
-/* print-one-product.component.spec på
-varför blir rad 83 så här*/
-/* fel meddelade */
+/* fel i test
+just nu blir detail och och produkter två olika listor i checkout hur
+jag upplever att den inte upptater order som visar på admin
+och att den tar inte bort helt på order när man tycker på ta bort
+*/

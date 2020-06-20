@@ -1,1 +1,13 @@
 <p>admin works!</p>
+<div *ngFor="let order of OrderList">
+  <div>
+    <div> id:{{order.id}}</div>
+    <div> Status:{{order.status}}</div>
+    <div> Price:{{order.totalPrice}}</div>
+    <div> CreatedBy:{{order.createdBy}}</div>
+    <div> Datum:{{order.created}}</div>
+    <div> Betald{{order.paymentMethod}}</div>
+  </div>
+  <button (click)="adminRemoveOrder(order)">Ta bort</button>
+  <br>
+</div>

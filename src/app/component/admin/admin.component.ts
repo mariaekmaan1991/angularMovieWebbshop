@@ -10,18 +10,25 @@ import { OrderService } from 'src/app/services/OrderService/order.service';
   styleUrls: ['./admin.component.scss'],
 })
 export class AdminComponent implements OnInit {
-  OrderData = new Subject<Order[]>();
+  //OrderData = new Subject<Order[]>();
+  order: Order;
 
   OrderList: Order[] = [];
-  constructor(private ServiceOrder: OrderService) {}
+  constructor(private serviceOrder: OrderService) {}
 
   ngOnInit(): void {
-    /* this.ServiceOrder.OrderData.subscribe((data: Order[]) => {
+    this.serviceOrder.OrderData.subscribe((data: Order[]) => {
       console.log(data);
       this.OrderList = data;
     });
 
-    this.ServiceOrder.getAdmin();
-  */
+    this.serviceOrder.getAdmin();
+  }
+
+  adminRemoveOrder(order: Order) {
+    this.serviceOrder.adminRemoveOrder(order);
+    let indexNumber: number = this.OrderList.indexOf(order);
+    let removeItem = this.OrderList.splice(indexNumber, 1);
+    console.log(removeItem);
   }
 }

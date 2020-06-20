@@ -24,6 +24,7 @@ describe('ProductsService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
+
     service = TestBed.inject(ProductsService);
   });
 

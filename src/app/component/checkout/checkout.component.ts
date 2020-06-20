@@ -2,11 +2,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Product } from 'src/app/models/Product';
 
 import { OrderService } from 'src/app/services/OrderService/order.service';
-import Order, { OrderRow } from 'src/app/models/Order';
 
 import { FormBuilder, Validators, FormControl } from '@angular/forms';
 
 import { Subject } from 'rxjs';
+import Order, { OrderRow } from 'src/app/models/Order';
 
 @Component({
   selector: 'app-checkout',
@@ -15,27 +15,26 @@ import { Subject } from 'rxjs';
 })
 export class CheckoutComponent implements OnInit {
   productCart = new Subject<Product[]>();
-  orderCart = new Subject<Order[]>();
   ProductCart: Product[];
   totalAmount: number;
   totalPrice: number;
-  added: string;
-  productId: number;
-
+  UserEmail: string;
+  products;
+  detailsProducts;
   cartlocalStorage: Product[] = [];
-  productListItem: Product[] = [];
-
+  orderRows: Order[] = [];
   orderList: Order[] = [];
 
   constructor(private serviceOrder: OrderService, private fb: FormBuilder) {}
 
   userProfile = this.fb.group({
-    firstName: [''],
-    lastName: [''],
+    firstName: ['', Validators.required],
+    lastName: ['', Validators.required],
+    email: ['', Validators.required],
     address: this.fb.group({
-      street: [''],
-      zip: [''],
-      city: [''],
+      street: ['', Validators.required],
+      zip: ['', Validators.required],
+      city: ['', Validators.required],
     }),
   });
 
@@ -50,28 +49,42 @@ export class CheckoutComponent implements OnInit {
     this.counter();
   }
 
-  createOder() {
-    let detailsProducts = this.cartlocalStorage.map((m) => {
-      let i = new OrderRow();
-      i.productId = m.id;
-      i.amount = m.quantity;
-      i.totalPrice = m.price;
+  userButtonOrder() {
+    //  let orderDate: number = new Date();
+    const orderDate = new Date();
+    let card: string = 'card';
 
-      return i;
+    let newOrder: Order = {
+      id: 0,
+      companyId: 18,
+      created: orderDate,
+      createdBy: this.UserEmail,
+      orderRows: [],
+      paymentMethod: card,
+      totalPrice: this.totalPrice,
+      status: 2,
+    };
+
+    let detailsProducts = this.cartlocalStorage.map((m) => {
+      let p = new OrderRow();
+
+      p.productId = m.id;
+      // p.product = null;
+      p.amount = m.quantity;
+      //p.orderId = m.id;
+      //p.id = 9;
+
+      return p;
+    });
+    console.log(detailsProducts, 'lista');
+
+    detailsProducts.forEach((detailsProducts) => {
+      newOrder.orderRows.push(detailsProducts);
     });
 
-    let dateNow: string = Date();
-    let neworder = new Order();
-    neworder.id;
-    neworder.created = dateNow;
-    neworder.status;
-    neworder.paymentMethod;
-    neworder.companyId;
-    neworder.totalPrice = this.totalPrice;
-    neworder.orderRows = detailsProducts;
-    neworder.createdBy = this.added;
-    console.log(neworder);
-    this.serviceOrder.createOrder(neworder);
+    console.log(newOrder, ' newOrder');
+    this.serviceOrder.createOrder(newOrder);
+    this.counter();
   }
 
   counter() {
@@ -79,19 +92,17 @@ export class CheckoutComponent implements OnInit {
     this.totalPrice = 0;
     for (let i: number = 0; i < this.cartlocalStorage.length; i++) {
       this.totalAmount += this.cartlocalStorage[i].quantity;
-      this.totalPrice =
+      this.totalPrice +=
         this.cartlocalStorage[i].quantity * this.cartlocalStorage[i].price;
-
-      console.log(this.totalAmount, this.productId, this.totalPrice);
     }
+    console.log(this.totalAmount, 'total', this.totalPrice);
   }
 
-  saveUserProfile() {
+  saveButtonProfile() {
     let saveProfile = this.userProfile.value;
-    let orderName: string = saveProfile.firstName;
-    let orderlastName: string = saveProfile.lastName;
-    this.added = orderName + ' ' + orderlastName;
-    console.log(this.added);
+    this.UserEmail = saveProfile.email;
+
+    console.log(this.UserEmail, saveProfile);
   }
 
   get firstName() {
@@ -102,6 +113,9 @@ export class CheckoutComponent implements OnInit {
     return this.userProfile.get('lastName');
   }
 
+  get email() {
+    return this.userProfile.get('email');
+  }
   get street() {
     return this.userProfile.get('street');
   }
@@ -115,10 +129,11 @@ export class CheckoutComponent implements OnInit {
     console.log(e);
     let indexNumber: number = this.cartlocalStorage.indexOf(e);
     this.cartlocalStorage.splice(indexNumber, 1);
+    this.counter();
   }
 
   localStorageClear() {
-    localStorage.setItem('key', JSON.stringify(this.cartlocalStorage || []));
+    localStorage.setItem('key', JSON.stringify(this.cartlocalStorage));
     localStorage.clear();
   }
 }

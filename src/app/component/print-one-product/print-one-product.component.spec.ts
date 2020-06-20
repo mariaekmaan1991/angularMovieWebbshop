@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { PrintOneProductComponent } from './print-one-product.component';
 import { Component } from '@angular/core';
 import { Product } from 'src/app/models/Product';
@@ -42,6 +41,14 @@ describe('PrintOneProductComponent', () => {
     const spy = spyOn(component.outProduct, 'emit');
 
     component.buttonInfo();
+
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('should send the value to the parent2', () => {
+    const spy = spyOn(component.cart, 'emit');
+
+    component.buttonCart();
 
     expect(spy).toHaveBeenCalled();
   });

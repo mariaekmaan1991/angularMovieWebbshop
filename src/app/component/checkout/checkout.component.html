@@ -1,14 +1,19 @@
 <p>checkout works!</p>
+totalPrice:{{ totalPrice}}
 <div *ngFor="let p of cartlocalStorage">
 
-  <app-print-one-product-checkout [singelproduct]="p" (remove2)="removeCart($event)"></app-print-one-product-checkout>>
+  <app-print-one-product-checkout [singelproduct]="p" (remove2)="removeCart($event)"></app-print-one-product-checkout>
 
 </div>
 
-<button (click)="localStorageClear()"></button>
+
+
+
+
+<button (click)="localStorageClear()">Töm Varukorgen</button>
 
 <div>
-  <form [formGroup]="userProfile" (ngSubmit)="saveUserProfile()">
+  <form [formGroup]="userProfile" (ngSubmit)="saveButtonProfile()">
     <div>
       <div>
         <label for="firstName">förnamn</label>
@@ -17,6 +22,10 @@
       <div>
         <label for="lastName">Efternamn</label>
         <input type="text" id="lastName" formControlName="lastName" />
+      </div>
+      <div>
+        <label for="email">Email</label>
+        <input type="text" id="email" formControlName="email" />
       </div>
     </div>
     <div formGroupName="address">
@@ -38,4 +47,4 @@
     </div>
   </form>
 </div>
-<button (click)="createOder()">Bekräfta beställning</button>
+<button (click)="userButtonOrder()">Bekräfta beställning</button>

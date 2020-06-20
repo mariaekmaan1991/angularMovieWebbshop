@@ -5,6 +5,8 @@ import { MockProductService } from 'src/app/services/ProductsService/mock-produc
 import { ProductsService } from 'src/app/services/ProductsService/products.service';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
+import { OrderService } from 'src/app/services/OrderService/order.service';
+import { MockOrderService } from 'src/app/services/OrderService/mock-order.service';
 
 describe('PrintOneProductCheckoutComponent', () => {
   let component: PrintOneProductCheckoutComponent;
@@ -14,7 +16,7 @@ describe('PrintOneProductCheckoutComponent', () => {
     TestBed.configureTestingModule({
       declarations: [PrintOneProductCheckoutComponent],
       providers: [
-        { provide: ProductsService, useClass: MockProductService },
+        { provide: OrderService, useClass: MockOrderService },
 
         {
           provide: ActivatedRoute,
@@ -36,9 +38,9 @@ describe('PrintOneProductCheckoutComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should create', () => {
-    const spy = spyOn(component.buttonProduct, 'emit');
-    component.removeButton();
+  it('should spy on remove2', () => {
+    const spy = spyOn(component.remove2, 'emit');
+    component.remove();
 
     expect(spy).toHaveBeenCalled();
   });
