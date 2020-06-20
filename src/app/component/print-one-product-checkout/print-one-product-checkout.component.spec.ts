@@ -35,4 +35,11 @@ describe('PrintOneProductCheckoutComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should create', () => {
+    const spy = spyOn(component.buttonProduct, 'emit');
+    component.removeButton();
+
+    expect(spy).toHaveBeenCalled();
+  });
 });

@@ -19,7 +19,7 @@ export class CheckoutComponent implements OnInit {
   ProductCart: Product[];
   totalAmount: number;
   totalPrice: number;
-  addedBy: string;
+  added: string;
   productId: number;
 
   cartlocalStorage: Product[] = [];
@@ -27,7 +27,7 @@ export class CheckoutComponent implements OnInit {
 
   orderList: Order[] = [];
 
-  constructor(private oService: OrderService, private fb: FormBuilder) {}
+  constructor(private serviceOrder: OrderService, private fb: FormBuilder) {}
 
   userProfile = this.fb.group({
     firstName: [''],
@@ -42,11 +42,11 @@ export class CheckoutComponent implements OnInit {
   ngOnInit(): void {
     this.cartlocalStorage = JSON.parse(localStorage.getItem('key'));
 
-    this.oService.OrderData.subscribe((data: Order[]) => {
+    this.serviceOrder.OrderData.subscribe((data: Order[]) => {
       console.log(data);
       this.orderList = data;
     });
-    this.oService.getOrderService();
+    this.serviceOrder.getOrderService();
     this.counter();
   }
 
@@ -60,16 +60,18 @@ export class CheckoutComponent implements OnInit {
       return i;
     });
 
-    console.log(detailsProducts);
     let dateNow: string = Date();
     let neworder = new Order();
     neworder.id;
     neworder.created = dateNow;
+    neworder.status;
+    neworder.paymentMethod;
+    neworder.companyId;
     neworder.totalPrice = this.totalPrice;
     neworder.orderRows = detailsProducts;
-    neworder.createdBy = this.addedBy;
+    neworder.createdBy = this.added;
     console.log(neworder);
-    this.oService.createOrder(neworder);
+    this.serviceOrder.createOrder(neworder);
   }
 
   counter() {
@@ -88,8 +90,8 @@ export class CheckoutComponent implements OnInit {
     let saveProfile = this.userProfile.value;
     let orderName: string = saveProfile.firstName;
     let orderlastName: string = saveProfile.lastName;
-    this.addedBy = orderName + ' ' + orderlastName;
-    console.log(this.addedBy);
+    this.added = orderName + ' ' + orderlastName;
+    console.log(this.added);
   }
 
   get firstName() {

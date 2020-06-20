@@ -28,10 +28,12 @@ export class OrderService implements IOderService {
     );
   }
 
-  /*h(){
-  this.Http.post(
-    'https://medieinstitutet-wie-products.azurewebsites.net/api/orders+ompanyId=18' +
+  /*getAdmin() {
+    this.Http.get(
+      'https://medieinstitutet-wie-products.azurewebsites.net/api/orders+companyId=18'
     ).subscribe((data: any) => {
-      this.oService.next(data);
+      this.OrderData.next(data);
+      console.log(data);
+    });
   }*/
 }

@@ -49,3 +49,7 @@ export class ProductsComponent implements OnInit {
     }
   }
 }
+
+/* print-one-product.component.spec på
+varför blir rad 83 så här*/
+/* fel meddelade */

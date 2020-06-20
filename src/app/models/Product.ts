@@ -5,7 +5,7 @@ export class Product {
   price: number;
   imageUrl: string;
   year: number;
-  addedby: string;
+  added: string;
   quantity: number;
   productCategory: [
     { categoryId: number; category: null },
